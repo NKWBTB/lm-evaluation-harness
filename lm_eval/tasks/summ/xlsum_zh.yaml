@@ -1,0 +1,15 @@
+dataset_path: csebuetnlp/xlsum
+dataset_name: chinese_simplified
+dataset_kwargs: null
+
+training_split: train
+validation_split: validation
+test_split: test
+doc_to_text: "Summarize the text in Simplified Chinese: {{text}}"
+doc_to_target: "{{summary}}"
+tag:
+ - summarization
+ - xlsum
+metric_list:
+ - metric: rouge
+task: xlsum-zh

@@ -3,6 +3,7 @@ import math
 import random
 import re
 import string
+import evaluate
 from collections.abc import Iterable
 from typing import List
 
@@ -87,6 +88,15 @@ def bleu(items):
     refs, preds = _sacreformat(refs, preds)
     return sacrebleu.corpus_bleu(preds, refs).score
 
+ROUGE = None
+@register_aggregation("rouge")
+def rouge(items):
+    refs = list(zip(*items))[0]
+    preds = list(zip(*items))[1]
+    global ROUGE
+    if ROUGE is None:
+        ROUGE = evaluate.load('rouge')
+    return ROUGE.compute(predictions=preds, references=refs)
 
 @register_aggregation("chrf")
 def chrf(items):
@@ -328,6 +338,14 @@ def f1_fn(items):  # This is a passthrough function
 def bleu_fn(items):  # This is a passthrough function
     return items
 
+@register_metric(
+    metric="rouge",
+    higher_is_better=True,
+    output_type="generate_until",
+    aggregation="rouge",
+)
+def rouge_fn(items):
+    return items
 
 @register_metric(
     metric="chrf",
