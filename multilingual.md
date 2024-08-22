@@ -1,4 +1,5 @@
 ## Example evaluation with XLSUM
+Run the following to do a test run with 10 samples from each dataset and dump the output from LLM.
 ```bash
 ./run_eval.sh
 ```
