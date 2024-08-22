@@ -1,10 +1,15 @@
 ## Example evaluation with XLSUM
-```
+```bash
 ./run_eval.sh
 ```
 
-### Prompt configuration
-See `doc_to_text` field of [`lm_eval/tasks/summ/xlsum.py`](lm_eval/tasks/summ/xlsum.py)
+### Prompt/Task configuration
+Prompt: See `doc_to_text` field of [`lm_eval/tasks/summ/xlsum.py`](lm_eval/tasks/summ/xlsum.py)
+
+Run the script to generate the yaml configuration for lm-eval
+```bash
+python xlsum.py
+```
 
 ### Metric configuration
 See `rouge` and `bertscore` in [`lm_eval/api/metrics.py`](lm_eval/api/metrics.py)
