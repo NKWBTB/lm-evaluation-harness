@@ -98,6 +98,23 @@ def rouge(items):
         ROUGE = evaluate.load('rouge')
     return ROUGE.compute(predictions=preds, references=refs)
 
+BERTSCORE = None
+@register_aggregation("bertscore")
+def rouge(items):
+    refs = list(zip(*items))[0]
+    preds = list(zip(*items))[1]
+    global BERTSCORE
+    if BERTSCORE is None:
+        BERTSCORE = evaluate.load('bertscore')
+    scores = BERTSCORE.compute(predictions=preds, 
+                            references=refs, 
+                            model_type="bert-base-multilingual-cased",
+                            num_layers=9)
+    for variant in ["precision", "recall", "f1"]:
+        scores[variant] = np.mean(scores[variant])
+    scores.pop("hashcode", None)
+    return scores
+
 @register_aggregation("chrf")
 def chrf(items):
     """chrF++ is a tool for automatic evaluation of machine translation output
@@ -345,6 +362,15 @@ def bleu_fn(items):  # This is a passthrough function
     aggregation="rouge",
 )
 def rouge_fn(items):
+    return items
+
+@register_metric(
+    metric="bertscore",
+    higher_is_better=True,
+    output_type="generate_until",
+    aggregation="bertscore",
+)
+def bertscore_fn(items):
     return items
 
 @register_metric(
