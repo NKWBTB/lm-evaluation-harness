@@ -1,0 +1,4 @@
+dataset_name: french
+doc_to_text: "Summarize the text in French: {{text}}"
+include: xlsum_common_yaml
+task: xlsum-fr

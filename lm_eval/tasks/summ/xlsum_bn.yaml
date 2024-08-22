@@ -1,0 +1,4 @@
+dataset_name: bengali
+doc_to_text: "Summarize the text in Bengali: {{text}}"
+include: xlsum_common_yaml
+task: xlsum-bn

@@ -1,0 +1,4 @@
+dataset_name: spanish
+doc_to_text: "Summarize the text in Spanish: {{text}}"
+include: xlsum_common_yaml
+task: xlsum-es
